@@ -15,8 +15,9 @@ class Tableau1 extends Phaser.Scene{
 
         //ground (premier plan noir)
 
-        this.load.image('filante','image/filante.png')
-        
+        this.load.image('fil','image/filante.png')
+        this.load.image('ovni','image/ovni.png')
+
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -79,6 +80,13 @@ class Tableau1 extends Phaser.Scene{
          */
         this.groundContainer=this.add.container(0,0);
 
+        /**
+         * filtre type idle au premier plan
+         * @type {Phaser.GameObjects.Sprite}
+         */
+
+        this.filant = this.add.sprite(800,0, 'fil').setOrigin(0,0);
+        //this.groundContainer.add(filant);
 
 
         /**
@@ -120,10 +128,24 @@ class Tableau1 extends Phaser.Scene{
                 case Phaser.Input.Keyboard.KeyCodes.LEFT:
                     me.speed=-1;
                     break;
-                case Phaser.Input.Keyboard.KeyCodes.S:
+                case Phaser.Input.Keyboard.KeyCodes.A:
+                    me.tweens.add({
+                        targets: me.filant,
+                        x: -700,
+                        y: 200,
+                        duration: 2000,
+                        ease: 'Linear',
+                        repeat:0,
+                        delay: 0,
+                        onComplete:function(){
+                            me.filant.x=800;
+                            me.filant.y=0;
+                        }
+
+                    });
 
                     break;
-                case Phaser.Input.Keyboard.KeyCodes.P:
+                case Phaser.Input.Keyboard.KeyCodes.B:
 
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.N:
