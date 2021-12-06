@@ -88,7 +88,8 @@ class Tableau1 extends Phaser.Scene{
         this.filant = this.add.sprite(800,0, 'fil').setOrigin(0,0);
         //this.groundContainer.add(filant);
 
-
+        this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
+        this.ovni.setScale(0.01)
         /**
          * filtre type Rain au premier plan
          * @type {Phaser.GameObjects.Sprite}
@@ -129,24 +130,49 @@ class Tableau1 extends Phaser.Scene{
                     me.speed=-1;
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.A:
-                    me.tweens.add({
-                        targets: me.filant,
-                        x: -700,
-                        y: 200,
-                        duration: 2000,
-                        ease: 'Linear',
-                        repeat:0,
-                        delay: 0,
-                        onComplete:function(){
-                            me.filant.x=800;
-                            me.filant.y=0;
-                        }
+                        me.tweens.add({
+                            targets: me.filant,
+                            x: -700,
+                            y: 200,
+                            duration: 2000,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            onComplete: function () {
+                                me.filant.x = 800;
+                                me.filant.y = 0;
+                            }
 
                     });
 
                     break;
-                case Phaser.Input.Keyboard.KeyCodes.B:
-
+                case Phaser.Input.Keyboard.KeyCodes.Z:
+                    if (me.ovni.x == 100) {
+                            me.tweens.add({
+                                targets: me.ovni,
+                                x: 0,
+                                y: 0,
+                                scale: 0.5,
+                                duration: 200,
+                                ease: 'Linear',
+                                repeat: 0,
+                                delay: 0,
+                                callbackScope: me.ovni
+                            });
+                    }
+                    if (me.ovni.x == 0) {
+                        me.tweens.add({
+                            targets: me.ovni,
+                            x: 100,
+                            y: 50,
+                            scale: -0.5,
+                            duration: 200,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            callbackScope: me.ovni
+                        });
+                    }
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.N:
 
