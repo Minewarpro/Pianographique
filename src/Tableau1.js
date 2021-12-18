@@ -17,7 +17,7 @@ class Tableau1 extends Phaser.Scene{
 
         this.load.image('fil','image/filante.png')
         this.load.image('ovni','image/ovni.png')
-        this.load.image('virevoltant','image/virevoltant.png')
+        this.load.image('virevolant','image/virevolant.png')
 
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
@@ -88,12 +88,13 @@ class Tableau1 extends Phaser.Scene{
         this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
         this.ovni.setScale(0.01)
 
-        this.virevoltant = this.add.sprite(100,50, 'virevoltant').setOrigin(0,0);
+        this.virevolant = this.add.image(1200,700, 'virevolant').setOrigin(0,0);
+        this.virevolant.setScale(0.3)
+
         /**
          * filtre type Rain au premier plan
          * @type {Phaser.GameObjects.Sprite}
          */
-
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
@@ -141,7 +142,6 @@ class Tableau1 extends Phaser.Scene{
                                 me.filant.x = 800;
                                 me.filant.y = 0;
                             }
-
                     });
 
                     break;
@@ -174,7 +174,18 @@ class Tableau1 extends Phaser.Scene{
                     }
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.N:
-
+                    me.tweens.add({
+                        targets: me.virevolant,
+                        x: { value: -600, duration: 5000, ease: 'Power2' },
+                        y: { value: 400, duration: 2500, ease: 'Bounce.easeIn' },
+                        ease: 'Linear',
+                        repeat: 0,
+                        delay: 0,
+                        onComplete: function () {
+                            me.virevolant.x = 800;
+                            me.virevolant.y = 700;
+                        }
+                    });
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.D:
 
