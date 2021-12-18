@@ -17,6 +17,7 @@ class Tableau1 extends Phaser.Scene{
 
         this.load.image('fil','image/filante.png')
         this.load.image('ovni','image/ovni.png')
+        this.load.image('virevoltant','image/virevoltant.png')
 
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
@@ -80,16 +81,14 @@ class Tableau1 extends Phaser.Scene{
          */
         this.groundContainer=this.add.container(0,0);
 
-        /**
-         * filtre type idle au premier plan
-         * @type {Phaser.GameObjects.Sprite}
-         */
 
         this.filant = this.add.sprite(800,0, 'fil').setOrigin(0,0);
         //this.groundContainer.add(filant);
 
         this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
         this.ovni.setScale(0.01)
+
+        this.virevoltant = this.add.sprite(100,50, 'virevoltant').setOrigin(0,0);
         /**
          * filtre type Rain au premier plan
          * @type {Phaser.GameObjects.Sprite}
