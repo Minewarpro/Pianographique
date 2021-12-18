@@ -22,8 +22,8 @@ class Tableau1 extends Phaser.Scene{
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
-        for(let i=1;i<=5;i++){
-
+        for(let i=1;i<=6;i++){
+            this.load.image('star-'+i,'image/star/star-'+i+'.png')
         }
 
 
@@ -95,6 +95,18 @@ class Tableau1 extends Phaser.Scene{
          * filtre type Rain au premier plan
          * @type {Phaser.GameObjects.Sprite}
          */
+
+        this.star = this.add.sprite(0, 0, 'star-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'star',
+            frames: this.getFrames('star-',6),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.star.play('star');
+        this.star.setScale(0.5);
+        this.star.visible = false;
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
@@ -173,7 +185,7 @@ class Tableau1 extends Phaser.Scene{
                         });
                     }
                     break;
-                case Phaser.Input.Keyboard.KeyCodes.N:
+                case Phaser.Input.Keyboard.KeyCodes.E:
                     me.tweens.add({
                         targets: me.virevolant,
                         x: { value: -600, duration: 5000, ease: 'Power2' },
@@ -187,8 +199,8 @@ class Tableau1 extends Phaser.Scene{
                         }
                     });
                     break;
-                case Phaser.Input.Keyboard.KeyCodes.D:
-
+                case Phaser.Input.Keyboard.KeyCodes.R:
+                    me.star.visible = true
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.Q:
 
@@ -203,8 +215,8 @@ class Tableau1 extends Phaser.Scene{
                 case Phaser.Input.Keyboard.KeyCodes.LEFT:
                     me.speed=0;
                     break;
-                case Phaser.Input.Keyboard.KeyCodes.D:
-
+                case Phaser.Input.Keyboard.KeyCodes.R:
+                    me.star.visible = false
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.Q:
 
