@@ -18,6 +18,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('fil','image/filante.png')
         this.load.image('ovni','image/ovni.png')
         this.load.image('virevolant','image/virevolant.png')
+        this.load.image('virevolant','image/meteorite_gif.gif')
         this.load.image('plane','image/planes/plane_1/plane_1_blue.png')
         this.load.image('torpedo','image/planes/torpedo/torpedo_black.png')
 
@@ -27,7 +28,7 @@ class Tableau1 extends Phaser.Scene{
         for(let i=1;i<=6;i++){
             this.load.image('star-'+i,'image/star/star-'+i+'.png')
         }
-        for(let i=0;i<=9;i++){
+        for(let i=1;i<=9;i++){
             this.load.image('explosion_0'+i,'image/explosion_effect/keyframes/explosion_0'+i+'.png')
         }
 
@@ -122,12 +123,12 @@ class Tableau1 extends Phaser.Scene{
         this.explosion = this.add.sprite(0, 150, 'explosion_01').setOrigin(0,0);
         this.anims.create({
             key: 'explosion',
-            frames: this.getFrames('explosion_0',10),
+            frames: this.getFrames('explosion_0',9),
             frameRate: 8,
             repeat: 0
 
         });
-
+        this.explosion.visible=false
         this.explosion.setScale(0.3);
 
 
@@ -243,12 +244,12 @@ class Tableau1 extends Phaser.Scene{
                     if (me.plane.x>0 && me.plane.x<900) {
                         me.torpedo.visible=true;
                         me.torpedo.x=me.plane.x;
-                        me.explosion.x=me.plane.x+200;
-                        me.explosion.y=me.plane.y+500;
+                        me.explosion.x=me.plane.x+150;
+                        me.explosion.y=me.plane.y+550;
                         me.tweens.add({
                             targets: me.torpedo,
                             x: me.plane.x+200,
-                            y: me.plane.y+500,
+                            y: me.plane.y+600,
                             duration : 2000,
                             ease: 'Linear',
                             repeat: 0,
@@ -256,6 +257,7 @@ class Tableau1 extends Phaser.Scene{
                             onComplete: function () {
                                 me.torpedo.visible=false;
                                 me.torpedo.y=150;
+                                me.explosion.visible=true;
                                 me.explosion.play('explosion');
                             }
                         });
