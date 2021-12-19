@@ -41,7 +41,11 @@ class Tableau1 extends Phaser.Scene{
         }
 
         for(let i=1;i<=3;i++){
-            this.load.image('rain'+i,'image/rain/frame'+i+'.png')
+            this.load.image('frame'+i,'image/rain/frame'+i+'.png')
+        }
+
+        for(let i=1;i<=5;i++){
+            this.load.image('frame-'+i,'image/snow/frame-'+i+'.png')
         }
 
         for(let i=1;i<=4;i++){
@@ -224,11 +228,25 @@ class Tableau1 extends Phaser.Scene{
         this.anims.create({
             key: 'rain',
             frames: this.getFrames('frame',3),
-            frameRate: 8,
+            frameRate: 16,
             repeat: -1
 
         });
+        this.rain.setScale(1.8)
         this.rain.play('rain')
+        this.rain.visible=false;
+
+        this.snow = this.add.sprite(0, 0, 'frame-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'snow',
+            frames: this.getFrames('frame-',5),
+            frameRate: 16,
+            repeat: -1
+
+        });
+        this.snow.setScale(1.8)
+        this.snow.play('snow')
+
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
@@ -423,6 +441,12 @@ class Tableau1 extends Phaser.Scene{
                             me.sheepWalk.stop('sheep-walk')
                         }
                     });
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.D:
+                    me.rain.visible=true;
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.F:
+                    this.snow.visible=false;
                     break;
 
 
