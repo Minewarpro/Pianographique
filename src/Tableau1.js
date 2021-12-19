@@ -33,6 +33,14 @@ class Tableau1 extends Phaser.Scene{
         }
 
         for(let i=1;i<=4;i++){
+            this.load.image('llama-walk-'+i,'image/llama/llama-walk-'+i+'.png')
+        }
+
+        for(let i=1;i<=4;i++){
+            this.load.image('pig-walk-'+i,'image/pig/pig-walk-'+i+'.png')
+        }
+
+        for(let i=1;i<=4;i++){
             this.load.image('chicken-walk-'+i,'image/chiken/chicken-walk-'+i+'.png')
         }
 
@@ -173,6 +181,26 @@ class Tableau1 extends Phaser.Scene{
 
         });
         this.chickenWalk.play('chicken-walk')
+
+        this.llamaWalk = this.add.sprite(700, 780, 'llama-walk-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'llama-walk',
+            frames: this.getFrames('llama-walk-',4),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.llamaWalk.play('llama-walk')
+
+        this.pigWalk = this.add.sprite(700, 850, 'pig-walk-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'pig-walk',
+            frames: this.getFrames('pig-walk-',4),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.pigWalk.play('pig-walk')
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
@@ -322,7 +350,35 @@ class Tableau1 extends Phaser.Scene{
                         repeat: 0,
                         delay: 0,
                         onComplete: function () {
-                            me.cowWalk.stop('chicken-walk')
+                            me.chickenWalk.stop('chicken-walk')
+                        }
+                    });
+                    break;
+                    case Phaser.Input.Keyboard.KeyCodes.P:
+                    me.tweens.add({
+                        targets: me.llamaWalk,
+                        x: 200,
+                        y: 780,
+                        duration : 3000,
+                        ease: 'Linear',
+                        repeat: 0,
+                        delay: 0,
+                        onComplete: function () {
+                            me.llamaWalk.stop('llama-walk')
+                        }
+                    });
+                    break;
+                    case Phaser.Input.Keyboard.KeyCodes.Q:
+                    me.tweens.add({
+                        targets: me.pigWalk,
+                        x: 200,
+                        y: 850,
+                        duration : 3000,
+                        ease: 'Linear',
+                        repeat: 0,
+                        delay: 0,
+                        onComplete: function () {
+                            me.pigWalk.stop('pig-walk')
                         }
                     });
                     break;
@@ -383,6 +439,44 @@ class Tableau1 extends Phaser.Scene{
                                 me.chickenWalk.y=750
                                 me.chickenWalk.setScale(1)
                                 me.chickenWalk.play('chicken-walk')
+                            }
+                        });
+                    }
+                    if (me.llamaWalk.x==200 && me.ovni.x==0){
+                        me.tweens.add({
+                            targets: me.llamaWalk,
+                            x: 220,
+                            y: 250,
+                            scale: 0.1,
+                            duration: 500,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            callbackScope: me.llamaWalk,
+                            onComplete: function () {
+                                me.llamaWalk.x=700
+                                me.llamaWalk.y=750
+                                me.llamaWalk.setScale(1)
+                                me.llamaWalk.play('llama-walk')
+                            }
+                        });
+                    }
+                    if (me.pigWalk.x==200 && me.ovni.x==0){
+                        me.tweens.add({
+                            targets: me.pigWalk,
+                            x: 220,
+                            y: 250,
+                            scale: 0.1,
+                            duration: 500,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            callbackScope: me.pigWalk,
+                            onComplete: function () {
+                                me.pigWalk.x=700
+                                me.pigWalk.y=850
+                                me.pigWalk.setScale(1)
+                                me.pigWalk.play('pig-walk')
                             }
                         });
                     }
