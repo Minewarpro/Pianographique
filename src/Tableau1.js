@@ -22,6 +22,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('plane','image/planes/plane_1/plane_1_blue.png')
         this.load.image('torpedo','image/planes/torpedo/torpedo_black.png')
         this.load.image('idleAlien','image/alien/idle.png')
+        this.load.image('santa','image/santa.png')
         this.load.audio('bombe','image/sound/bombe.mp3')
         this.load.audio('thunder','image/sound/thunder.mp3')
         this.load.audio('fireworkS','image/sound/firework.mp3')
@@ -36,6 +37,9 @@ class Tableau1 extends Phaser.Scene{
         this.load.audio('pigS','image/sound/pig.mp3')
         this.load.audio('sheepS','image/sound/sheep.mp3')
         this.load.audio('bip','image/sound/bip.mp3')
+        this.load.audio('rainS','image/sound/rain.mp3')
+        this.load.audio('ho','image/sound/ho.mp3')
+        this.load.audio('chrismasBell','image/sound/chismasBell.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -207,12 +211,22 @@ class Tableau1 extends Phaser.Scene{
         this.pigS = this.sound.add('pigS');
         this.sheepS = this.sound.add('sheepS');
         this.bip = this.sound.add('bip');
+        this.rainS = this.sound.add('rainS');
+        this.ho = this.sound.add('ho');
+        this.chrismasBell = this.sound.add('chrismasBell');
 
         this.night.play()
         this.night.setLoop(true);
 
+        this.rainS.play()
+        this.rainS.setLoop(true);
+        this.rainS.setMute(true);
+
         this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
         this.ovni.setScale(0.01)
+
+        this.santa = this.add.sprite(700,100, 'santa').setOrigin(0,0);
+        this.santa.setScale(0.15)
 
 
         this.star.play('star');
@@ -648,14 +662,17 @@ class Tableau1 extends Phaser.Scene{
                 case Phaser.Input.Keyboard.KeyCodes.D:
                     me.rain.visible=true;
                     me.snow.visible=false;
+                    me.rainS.setMute(false);
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.F:
                     me.snow.visible=true;
                     me.rain.visible=false;
+                    me.rainS.setMute(true);
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.G:
                     me.snow.visible=false;
                     me.rain.visible=false;
+                    me.rainS.setMute(true);
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.H:
                     me.eclair.visible=true;
@@ -682,6 +699,24 @@ class Tableau1 extends Phaser.Scene{
                     me.Gfirework.visible=true;
                     me.Gfirework.play('Gfirework')
                         me.sound.play('fireworkS')
+                    break;
+
+                    case Phaser.Input.Keyboard.KeyCodes.W:
+                        me.sound.play('ho')
+                        me.sound.play('chrismasBell')
+                        me.tweens.add({
+                            targets: me.santa,
+                            x: -200,
+                            y: 100,
+                            duration : 2000,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            onComplete: function () {
+                                me.santa.x = 700;
+                                me.santa.y = 100;
+                            }
+                        });
                     break;
 
 
