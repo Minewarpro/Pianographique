@@ -32,6 +32,10 @@ class Tableau1 extends Phaser.Scene{
             this.load.image('cow-walk-'+i,'image/cow/cow-walk-'+i+'.png')
         }
 
+        for(let i=1;i<=6;i++){
+            this.load.image('alien-walk-'+i,'image/alien/walk/walk'+i+'.png')
+        }
+
         for(let i=1;i<=4;i++){
             this.load.image('llama-walk-'+i,'image/llama/llama-walk-'+i+'.png')
         }
@@ -228,6 +232,16 @@ class Tableau1 extends Phaser.Scene{
         });
         this.sheepWalk.play('sheep-walk')
 
+        this.alienWalk = this.add.sprite(700, 870, 'alien-walk-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'alien-walk',
+            frames: this.getFrames('alien-walk-',6),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.alienWalk.play('alien-walk')
+
         this.rain = this.add.sprite(0, 0, 'frame1').setOrigin(0,0);
         this.anims.create({
             key: 'rain',
@@ -388,6 +402,21 @@ class Tableau1 extends Phaser.Scene{
                         delay: 0,
                         onComplete: function () {
                             me.cowWalk.stop('cow-walk')
+                        }
+                    });
+                    break;
+
+                    case Phaser.Input.Keyboard.KeyCodes.Y:
+                    me.tweens.add({
+                        targets: me.alienWalk,
+                        x: 200,
+                        y: 750,
+                        duration : 3000,
+                        ease: 'Linear',
+                        repeat: 0,
+                        delay: 0,
+                        onComplete: function () {
+                            me.alienWalk.stop('alien-walk')
                         }
                     });
                     break;
