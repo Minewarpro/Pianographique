@@ -292,15 +292,15 @@ class Tableau1 extends Phaser.Scene{
         this.firework.setScale(1)
         this.firework.visible=false;
 
-        this.Yfirework = this.add.sprite(400, 280, 'Yfirework1').setOrigin(0,0);
+        this.Yfirework = this.add.sprite(200, 210, 'Yfirework1').setOrigin(0,0);
         this.anims.create({
-            key: 'yfirework',
+            key: 'Yfirework',
             frames: this.getFrames('Yfirework',13),
             frameRate: 8,
             repeat: 0
 
         });
-        this.Yfirework.play('yfirework')
+        this.Yfirework.play('Yfirework')
         this.Yfirework.setScale(1)
         this.Yfirework.visible=false;
 
@@ -597,9 +597,9 @@ class Tableau1 extends Phaser.Scene{
                     me.firework.visible=true;
                     me.firework.play('firework')
                     break;
-                case Phaser.Input.Keyboard.KeyCodes.J:
+                case Phaser.Input.Keyboard.KeyCodes.K:
                     me.Yfirework.visible=true;
-                    me.Yfirework.play('yfirework')
+                    me.Yfirework.play('Yfirework')
                     break;
 
 
