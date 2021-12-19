@@ -21,6 +21,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('meteorite','image/meteorite_gif.gif')
         this.load.image('plane','image/planes/plane_1/plane_1_blue.png')
         this.load.image('torpedo','image/planes/torpedo/torpedo_black.png')
+        this.load.image('idleAlien','image/alien/idle.png')
 
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
@@ -38,6 +39,10 @@ class Tableau1 extends Phaser.Scene{
 
         for(let i=1;i<=4;i++){
             this.load.image('llama-walk-'+i,'image/llama/llama-walk-'+i+'.png')
+        }
+
+        for(let i=1;i<=11;i++){
+            this.load.image('fire'+i,'image/alien/jump/jump'+i+'.png')
         }
 
         for(let i=1;i<=4;i++){
@@ -137,6 +142,11 @@ class Tableau1 extends Phaser.Scene{
         this.virevolant = this.add.image(1200,700, 'virevolant').setOrigin(0,0);
         this.virevolant.setScale(0.3)
 
+        this.idleAlien = this.add.image(400,680, 'idleAlien').setOrigin(0,0);
+        this.idleAlien.setScale(0.2)
+        this.idleAlien.visible=false;
+
+
         /**
          * filtre type Rain au premier plan
          * @type {Phaser.GameObjects.Sprite}
@@ -232,15 +242,31 @@ class Tableau1 extends Phaser.Scene{
         });
         this.sheepWalk.play('sheep-walk')
 
-        this.alienWalk = this.add.sprite(700, 870, 'alien-walk-1').setOrigin(0,0);
+        this.alienWalk = this.add.sprite(700, 680, 'alien-walk-1').setOrigin(0,0);
         this.anims.create({
             key: 'alien-walk',
             frames: this.getFrames('alien-walk-',6),
-            frameRate: 8,
+            frameRate: 16,
             repeat: -1
 
         });
         this.alienWalk.play('alien-walk')
+        this.alienWalk.flipX=true
+        this.alienWalk.setScale(0.2)
+
+        this.alienFire = this.add.sprite(400, 680, 'fire1').setOrigin(0,0);
+        this.anims.create({
+            key: 'fire',
+            frames: this.getFrames('fire',11),
+            frameRate: 16,
+            repeat: -1
+
+        });
+        this.alienFire.play('fire')
+        this.alienFire.setScale(0.2)
+        this.alienFire.visible=false;
+
+
 
         this.rain = this.add.sprite(0, 0, 'frame1').setOrigin(0,0);
         this.anims.create({
@@ -409,14 +435,16 @@ class Tableau1 extends Phaser.Scene{
                     case Phaser.Input.Keyboard.KeyCodes.Y:
                     me.tweens.add({
                         targets: me.alienWalk,
-                        x: 200,
-                        y: 750,
-                        duration : 3000,
+                        x: 400,
+                        y: 680,
+                        duration : 4000,
                         ease: 'Linear',
                         repeat: 0,
                         delay: 0,
                         onComplete: function () {
                             me.alienWalk.stop('alien-walk')
+                            me.alienWalk.visible=false;
+                            me.idleAlien.visible=true;
                         }
                     });
                     break;
@@ -609,6 +637,13 @@ class Tableau1 extends Phaser.Scene{
                             }
                         });
                     }
+                        if (me.alienWalk.x==400){
+                            me.idleAlien.visible=false;
+                            me.alienFire.visible=true;
+                            me.alienFire.play('fire');
+
+                        }
+
             }
 
         });
