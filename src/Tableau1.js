@@ -160,7 +160,7 @@ class Tableau1 extends Phaser.Scene{
             repeat: -1
 
         });
-        this.bombe = game.add.audio('bombe');
+        this.bombe = this.sound.add('bombe');
 
         this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
         this.ovni.setScale(0.01)
@@ -539,7 +539,7 @@ class Tableau1 extends Phaser.Scene{
                     me.rain.visible=false;
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.H:
-                    me.bombe.play('bombe')
+
                     break;
 
 
@@ -564,6 +564,7 @@ class Tableau1 extends Phaser.Scene{
                                 me.torpedo.y=150;
                                 me.explosion.visible=true;
                                 me.explosion.play('explosion');
+                                me.sound.play('bombe')
                             }
                         });
                     }
