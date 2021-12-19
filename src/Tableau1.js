@@ -497,7 +497,6 @@ class Tableau1 extends Phaser.Scene{
                         delay: 0,
                         onComplete: function () {
                             me.plane.x = -200;
-                            me.sound.pause('planeS')
                         }
                     });
                     break;
