@@ -22,9 +22,9 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('plane','image/planes/plane_1/plane_1_blue.png')
         this.load.image('torpedo','image/planes/torpedo/torpedo_black.png')
         this.load.image('idleAlien','image/alien/idle.png')
-        this.load.audio('bombe','image/bombe.mp3')
-        this.load.audio('thunder','image/thunder.mp3')
-        this.load.audio('fireworkS','image/firework.mp3')
+        this.load.audio('bombe','image/sound/bombe.mp3')
+        this.load.audio('thunder','image/sound/thunder.mp3')
+        this.load.audio('fireworkS','image/sound/firework.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
