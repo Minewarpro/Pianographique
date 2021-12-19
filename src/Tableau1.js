@@ -34,6 +34,14 @@ class Tableau1 extends Phaser.Scene{
             this.load.image('cow-walk-'+i,'image/cow/cow-walk-'+i+'.png')
         }
 
+        for(let i=1;i<=13;i++){
+            this.load.image('firework'+i,'image/firework/blueFirework/firework'+i+'.png')
+        }
+
+        for(let i=1;i<=13;i++){
+            this.load.image('Yfirework'+i,'image/firework/yellowFirework/firework'+i+'.png')
+        }
+
         for(let i=1;i<=5;i++){
             this.load.image('eclair'+i,'image/éclair/eclair'+i+'.png')
         }
@@ -271,6 +279,30 @@ class Tableau1 extends Phaser.Scene{
         this.alienFire.play('fire')
         this.alienFire.setScale(0.2)
         this.alienFire.visible=false;
+
+        this.firework = this.add.sprite(400, 280, 'firework1').setOrigin(0,0);
+        this.anims.create({
+            key: 'firework',
+            frames: this.getFrames('firework',13),
+            frameRate: 8,
+            repeat: 0
+
+        });
+        this.firework.play('firework')
+        this.firework.setScale(1)
+        this.firework.visible=false;
+
+        this.Yfirework = this.add.sprite(400, 280, 'Yfirework1').setOrigin(0,0);
+        this.anims.create({
+            key: 'yfirework',
+            frames: this.getFrames('Yfirework',13),
+            frameRate: 8,
+            repeat: 0
+
+        });
+        this.Yfirework.play('yfirework')
+        this.Yfirework.setScale(1)
+        this.Yfirework.visible=false;
 
 
 
@@ -561,8 +593,14 @@ class Tableau1 extends Phaser.Scene{
                     me.eclair.play('eclair')
                     me.sound.play('thunder')
                     break;
-
-
+                case Phaser.Input.Keyboard.KeyCodes.J:
+                    me.firework.visible=true;
+                    me.firework.play('firework')
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.J:
+                    me.Yfirework.visible=true;
+                    me.Yfirework.play('yfirework')
+                    break;
 
 
                     case Phaser.Input.Keyboard.KeyCodes.ENTER:
