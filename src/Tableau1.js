@@ -28,6 +28,10 @@ class Tableau1 extends Phaser.Scene{
         for(let i=1;i<=6;i++){
             this.load.image('star-'+i,'image/star/star-'+i+'.png')
         }
+        for(let i=1;i<=4;i++){
+            this.load.image('cow-walk-'+i,'image/cow/cow-walk-'+i+'.png')
+        }
+
         for(let i=1;i<=9;i++){
             this.load.image('explosion_0'+i,'image/explosion_effect/keyframes/explosion_0'+i+'.png')
         }
@@ -144,6 +148,16 @@ class Tableau1 extends Phaser.Scene{
         });
         this.meteorite.play('meteorite')
         this.meteorite.setScale(0.3);
+
+        this.cowWalk = this.add.sprite(700, 750, 'cow-walk-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'cow-walk',
+            frames: this.getFrames('cow-walk-',3),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.cowWalk.play('cow-walk')
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
@@ -269,6 +283,20 @@ class Tableau1 extends Phaser.Scene{
                     });
 
                     break;
+                case Phaser.Input.Keyboard.KeyCodes.I:
+                    me.tweens.add({
+                        targets: me.cowWalk,
+                        x: 200,
+                        y: 750,
+                        duration : 3000,
+                        ease: 'Linear',
+                        repeat: 0,
+                        delay: 0,
+                        onComplete: function () {
+                            me.cowWalk.stop('cow-walk')
+                        }
+                    });
+                    break;
                 case Phaser.Input.Keyboard.KeyCodes.ENTER:
                     if (me.plane.x>0 && me.plane.x<900) {
                         me.torpedo.visible=true;
@@ -288,6 +316,25 @@ class Tableau1 extends Phaser.Scene{
                                 me.torpedo.y=150;
                                 me.explosion.visible=true;
                                 me.explosion.play('explosion');
+                            }
+                        });
+                    }
+                    if (me.cowWalk.x==200 && me.ovni.x==0){
+                        me.tweens.add({
+                            targets: me.cowWalk,
+                            x: 220,
+                            y: 250,
+                            scale: 0.1,
+                            duration: 500,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            callbackScope: me.cowWalk,
+                            onComplete: function () {
+                                me.cowWalk.x=700
+                                me.cowWalk.y=750
+                                me.cowWalk.setScale(1)
+                                me.cowWalk.play('cow-walk')
                             }
                         });
                     }
