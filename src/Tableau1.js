@@ -22,7 +22,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('plane','image/planes/plane_1/plane_1_blue.png')
         this.load.image('torpedo','image/planes/torpedo/torpedo_black.png')
         this.load.image('idleAlien','image/alien/idle.png')
-
+        this.load.audio('bombe','image/bombe.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -41,8 +41,8 @@ class Tableau1 extends Phaser.Scene{
             this.load.image('llama-walk-'+i,'image/llama/llama-walk-'+i+'.png')
         }
 
-        for(let i=1;i<=11;i++){
-            this.load.image('fire'+i,'image/alien/jump/jump'+i+'.png')
+        for(let i=1;i<=7;i++){
+            this.load.image('jump'+i,'image/alien/jump/jump'+i+'.png')
         }
 
         for(let i=1;i<=4;i++){
@@ -160,6 +160,7 @@ class Tableau1 extends Phaser.Scene{
             repeat: -1
 
         });
+        this.bombe = game.add.audio('bombe');
 
         this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
         this.ovni.setScale(0.01)
@@ -246,20 +247,19 @@ class Tableau1 extends Phaser.Scene{
         this.anims.create({
             key: 'alien-walk',
             frames: this.getFrames('alien-walk-',6),
-            frameRate: 16,
+            frameRate: 8,
             repeat: -1
 
         });
         this.alienWalk.play('alien-walk')
-        this.alienWalk.flipX=true
         this.alienWalk.setScale(0.2)
 
-        this.alienFire = this.add.sprite(400, 680, 'fire1').setOrigin(0,0);
+        this.alienFire = this.add.sprite(400, 680, 'jump1').setOrigin(0,0);
         this.anims.create({
             key: 'fire',
-            frames: this.getFrames('fire',11),
-            frameRate: 16,
-            repeat: -1
+            frames: this.getFrames('jump',7),
+            frameRate: 8,
+            repeat: 0
 
         });
         this.alienFire.play('fire')
@@ -433,20 +433,42 @@ class Tableau1 extends Phaser.Scene{
                     break;
 
                     case Phaser.Input.Keyboard.KeyCodes.Y:
-                    me.tweens.add({
-                        targets: me.alienWalk,
-                        x: 400,
-                        y: 680,
-                        duration : 4000,
-                        ease: 'Linear',
-                        repeat: 0,
-                        delay: 0,
-                        onComplete: function () {
-                            me.alienWalk.stop('alien-walk')
-                            me.alienWalk.visible=false;
-                            me.idleAlien.visible=true;
-                        }
-                    });
+                    if (me.alienWalk.x==700) {
+                        me.alienWalk.flipX=true;
+                        me.tweens.add({
+                            targets: me.alienWalk,
+                            x: 400,
+                            y: 680,
+                            duration: 4000,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            onComplete: function () {
+                                me.alienWalk.stop('alien-walk')
+                                me.alienWalk.visible = false;
+                                me.idleAlien.visible = true;
+                            }
+                        });
+                    }
+                    if (me.alienWalk.x==400){
+                        me.alienWalk.visible=true;
+                        me.idleAlien.visible=false;
+                        me.alienWalk.flipX=false;
+                        me.alienWalk.play('alien-walk')
+                        me.tweens.add({
+                            targets: me.alienWalk,
+                            x: 700,
+                            y: 680,
+                            duration: 4000,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            onComplete: function () {
+                                me.alienWalk.flipX=true;
+                                me.idleAlien.visible=false;
+                            }
+                        });
+                    }
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.O:
                     me.tweens.add({
@@ -515,6 +537,9 @@ class Tableau1 extends Phaser.Scene{
                 case Phaser.Input.Keyboard.KeyCodes.G:
                     me.snow.visible=false;
                     me.rain.visible=false;
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.H:
+                    me.bombe.play('bombe')
                     break;
 
 
@@ -642,6 +667,20 @@ class Tableau1 extends Phaser.Scene{
                             me.alienFire.visible=true;
                             me.alienFire.play('fire');
 
+                            me.tweens.add({
+                                targets: me.alienFire,
+                                x: 400,
+                                y: 650,
+                                duration: 1000,
+                                ease: 'Linear',
+                                yoyo: true,
+                                repeat: 0,
+                                delay: 0,
+                                onComplete: function () {
+                                    me.idleAlien.visible=true;
+                                    me.alienFire.visible=false;
+                                }
+                            });
                         }
 
             }
