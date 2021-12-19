@@ -23,6 +23,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('torpedo','image/planes/torpedo/torpedo_black.png')
         this.load.image('idleAlien','image/alien/idle.png')
         this.load.audio('bombe','image/bombe.mp3')
+        this.load.audio('thunder','image/thunder.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -31,6 +32,10 @@ class Tableau1 extends Phaser.Scene{
         }
         for(let i=1;i<=4;i++){
             this.load.image('cow-walk-'+i,'image/cow/cow-walk-'+i+'.png')
+        }
+
+        for(let i=1;i<=5;i++){
+            this.load.image('eclair'+i,'image/éclair/eclair'+i+'.png')
         }
 
         for(let i=1;i<=6;i++){
@@ -161,6 +166,7 @@ class Tableau1 extends Phaser.Scene{
 
         });
         this.bombe = this.sound.add('bombe');
+        this.thunder = this.sound.add('thunder');
 
         this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
         this.ovni.setScale(0.01)
@@ -291,6 +297,18 @@ class Tableau1 extends Phaser.Scene{
         this.snow.setScale(1.8)
         this.snow.play('snow')
         this.snow.visible=false;
+
+        this.eclair = this.add.sprite(0, 0, 'eclair1').setOrigin(0,0);
+        this.anims.create({
+            key: 'eclair',
+            frames: this.getFrames('eclair',5),
+            frameRate: 16,
+            repeat: 0
+
+        });
+        this.eclair.setScale(1.2)
+        this.eclair.play('eclair')
+        this.eclair.visible=false;
 
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
@@ -539,7 +557,9 @@ class Tableau1 extends Phaser.Scene{
                     me.rain.visible=false;
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.H:
-
+                    me.eclair.visible=true;
+                    me.eclair.play('eclair')
+                    me.sound.play('thunder')
                     break;
 
 
