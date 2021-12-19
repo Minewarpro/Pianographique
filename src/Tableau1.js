@@ -128,8 +128,7 @@ class Tableau1 extends Phaser.Scene{
         this.filant = this.add.sprite(800,0, 'fil').setOrigin(0,0);
         //this.groundContainer.add(filant);
 
-        this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
-        this.ovni.setScale(0.01)
+
 
         this.virevolant = this.add.image(1200,700, 'virevolant').setOrigin(0,0);
         this.virevolant.setScale(0.3)
@@ -147,6 +146,11 @@ class Tableau1 extends Phaser.Scene{
             repeat: -1
 
         });
+
+        this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
+        this.ovni.setScale(0.01)
+
+
         this.star.play('star');
         this.star.setScale(0.5);
         this.star.visible = false;
@@ -246,6 +250,7 @@ class Tableau1 extends Phaser.Scene{
         });
         this.snow.setScale(1.8)
         this.snow.play('snow')
+        this.snow.visible=false;
 
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
@@ -444,9 +449,15 @@ class Tableau1 extends Phaser.Scene{
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.D:
                     me.rain.visible=true;
+                    me.snow.visible=false;
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.F:
-                    this.snow.visible=false;
+                    me.snow.visible=true;
+                    me.rain.visible=false;
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.G:
+                    me.snow.visible=false;
+                    me.rain.visible=false;
                     break;
 
 
