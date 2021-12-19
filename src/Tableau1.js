@@ -26,6 +26,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.audio('thunder','image/sound/thunder.mp3')
         this.load.audio('fireworkS','image/sound/firework.mp3')
         this.load.audio('bell','image/sound/bell.mp3')
+        this.load.audio('ufo','image/sound/ufo.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -187,6 +188,7 @@ class Tableau1 extends Phaser.Scene{
         this.thunder = this.sound.add('thunder');
         this.fireworkS = this.sound.add('fireworkS');
         this.bell = this.sound.add('bell');
+        this.ufo = this.sound.add('ufo');
 
         this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
         this.ovni.setScale(0.01)
@@ -431,6 +433,7 @@ class Tableau1 extends Phaser.Scene{
 
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.Z:
+                    me.sound.play('ufo')
                     if (me.ovni.x == 100) {
                             me.tweens.add({
                                 targets: me.ovni,
