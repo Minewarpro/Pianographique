@@ -18,7 +18,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('fil','image/filante.png')
         this.load.image('ovni','image/ovni.png')
         this.load.image('virevolant','image/virevolant.png')
-        this.load.image('virevolant','image/meteorite_gif.gif')
+        this.load.image('meteorite','image/meteorite_gif.gif')
         this.load.image('plane','image/planes/plane_1/plane_1_blue.png')
         this.load.image('torpedo','image/planes/torpedo/torpedo_black.png')
 
@@ -31,7 +31,9 @@ class Tableau1 extends Phaser.Scene{
         for(let i=1;i<=9;i++){
             this.load.image('explosion_0'+i,'image/explosion_effect/keyframes/explosion_0'+i+'.png')
         }
-
+        for(let i=1;i<=3;i++){
+            this.load.image('meteorite-'+i,'image/meteorite/meteorite-'+i+'.png')
+        }
     }
     getFrames(prefix,length){
         let frames=[];
@@ -89,6 +91,7 @@ class Tableau1 extends Phaser.Scene{
         this.plane = this.add.sprite(-200,100, 'plane').setOrigin(0,0);
         this.plane.setScale(0.1)
 
+
         this.torpedo = this.add.sprite(100,150, 'torpedo').setOrigin(0,0);
         this.torpedo.setScale(0.1)
         this.torpedo.visible = false;
@@ -131,6 +134,16 @@ class Tableau1 extends Phaser.Scene{
         this.explosion.visible=false
         this.explosion.setScale(0.3);
 
+        this.meteorite = this.add.sprite(-100, -300, 'meteorite-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'meteorite',
+            frames: this.getFrames('meteorite-',3),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.meteorite.play('meteorite')
+        this.meteorite.setScale(0.3);
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
@@ -239,6 +252,22 @@ class Tableau1 extends Phaser.Scene{
                             me.plane.x = -200;
                         }
                     });
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.U:
+                    me.tweens.add({
+                        targets: me.meteorite,
+                        x: 900,
+                        y: 500,
+                        duration : 2000,
+                        ease: 'Linear',
+                        repeat: 0,
+                        delay: 0,
+                        onComplete: function () {
+                            me.meteorite.x = -100;
+                            me.meteorite.y = -300;
+                        }
+                    });
+
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.ENTER:
                     if (me.plane.x>0 && me.plane.x<900) {
