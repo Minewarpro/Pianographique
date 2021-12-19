@@ -40,6 +40,10 @@ class Tableau1 extends Phaser.Scene{
             this.load.image('pig-walk-'+i,'image/pig/pig-walk-'+i+'.png')
         }
 
+        for(let i=1;i<=3;i++){
+            this.load.image('rain'+i,'image/rain/frame'+i+'.png')
+        }
+
         for(let i=1;i<=4;i++){
             this.load.image('sheep-walk-'+i,'image/sheep/sheep-walk-'+i+'.png')
         }
@@ -215,6 +219,16 @@ class Tableau1 extends Phaser.Scene{
 
         });
         this.sheepWalk.play('sheep-walk')
+
+        this.rain = this.add.sprite(0, 0, 'frame1').setOrigin(0,0);
+        this.anims.create({
+            key: 'rain',
+            frames: this.getFrames('frame',3),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.rain.play('rain')
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
