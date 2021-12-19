@@ -41,6 +41,10 @@ class Tableau1 extends Phaser.Scene{
         }
 
         for(let i=1;i<=4;i++){
+            this.load.image('sheep-walk-'+i,'image/sheep/sheep-walk-'+i+'.png')
+        }
+
+        for(let i=1;i<=4;i++){
             this.load.image('chicken-walk-'+i,'image/chiken/chicken-walk-'+i+'.png')
         }
 
@@ -201,6 +205,16 @@ class Tableau1 extends Phaser.Scene{
 
         });
         this.pigWalk.play('pig-walk')
+
+        this.sheepWalk = this.add.sprite(700, 870, 'sheep-walk-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'sheep-walk',
+            frames: this.getFrames('sheep-walk-',4),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.sheepWalk.play('sheep-walk')
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
@@ -382,7 +396,25 @@ class Tableau1 extends Phaser.Scene{
                         }
                     });
                     break;
-                case Phaser.Input.Keyboard.KeyCodes.ENTER:
+                    case Phaser.Input.Keyboard.KeyCodes.S:
+                    me.tweens.add({
+                        targets: me.sheepWalk,
+                        x: 200,
+                        y: 870,
+                        duration : 3000,
+                        ease: 'Linear',
+                        repeat: 0,
+                        delay: 0,
+                        onComplete: function () {
+                            me.sheepWalk.stop('sheep-walk')
+                        }
+                    });
+                    break;
+
+
+
+
+                    case Phaser.Input.Keyboard.KeyCodes.ENTER:
                     if (me.plane.x>0 && me.plane.x<900) {
                         me.torpedo.visible=true;
                         me.torpedo.x=me.plane.x;
@@ -477,6 +509,25 @@ class Tableau1 extends Phaser.Scene{
                                 me.pigWalk.y=850
                                 me.pigWalk.setScale(1)
                                 me.pigWalk.play('pig-walk')
+                            }
+                        });
+                    }
+                    if (me.sheepWalk.x==200 && me.ovni.x==0){
+                        me.tweens.add({
+                            targets: me.sheepWalk,
+                            x: 220,
+                            y: 250,
+                            scale: 0.1,
+                            duration: 500,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            callbackScope: me.sheepWalk,
+                            onComplete: function () {
+                                me.sheepWalk.x=700
+                                me.sheepWalk.y=870
+                                me.sheepWalk.setScale(1)
+                                me.sheepWalk.play('sheep-walk')
                             }
                         });
                     }
