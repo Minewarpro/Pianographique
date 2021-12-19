@@ -164,7 +164,7 @@ class Tableau1 extends Phaser.Scene{
         });
         this.cowWalk.play('cow-walk')
 
-        this.chickenWalk = this.add.sprite(0, 0, 'chicken-walk-1').setOrigin(0,0);
+        this.chickenWalk = this.add.sprite(700, 780, 'chicken-walk-1').setOrigin(0,0);
         this.anims.create({
             key: 'chicken-walk',
             frames: this.getFrames('chicken-walk-',4),
@@ -316,7 +316,7 @@ class Tableau1 extends Phaser.Scene{
                     me.tweens.add({
                         targets: me.chickenWalk,
                         x: 200,
-                        y: 750,
+                        y: 780,
                         duration : 3000,
                         ease: 'Linear',
                         repeat: 0,
@@ -364,6 +364,25 @@ class Tableau1 extends Phaser.Scene{
                                 me.cowWalk.y=750
                                 me.cowWalk.setScale(1)
                                 me.cowWalk.play('cow-walk')
+                            }
+                        });
+                    }
+                    if (me.chickenWalk.x==200 && me.ovni.x==0){
+                        me.tweens.add({
+                            targets: me.chickenWalk,
+                            x: 220,
+                            y: 250,
+                            scale: 0.1,
+                            duration: 500,
+                            ease: 'Linear',
+                            repeat: 0,
+                            delay: 0,
+                            callbackScope: me.chickenWalk,
+                            onComplete: function () {
+                                me.chickenWalk.x=700
+                                me.chickenWalk.y=750
+                                me.chickenWalk.setScale(1)
+                                me.chickenWalk.play('chicken-walk')
                             }
                         });
                     }
