@@ -30,7 +30,9 @@ class Tableau1 extends Phaser.Scene{
         this.load.audio('night','image/sound/night.mp3')
         this.load.audio('planeS','image/sound/plane.mp3')
         this.load.audio('alienS','image/sound/alien.mp3')
-        this.load.audio('meteoriteS','image/sound/meteoriteS.mp3')
+        this.load.audio('meteoriteS','image/sound/meteorite.mp3')
+        this.load.audio('cowS','image/sound/cow.mp3')
+        this.load.audio('chickenS','image/sound/chicken.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -197,6 +199,8 @@ class Tableau1 extends Phaser.Scene{
         this.planeS = this.sound.add('planeS');
         this.alienS = this.sound.add('alienS');
         this.meteoriteS = this.sound.add('meteoriteS');
+        this.cowS = this.sound.add('cowS');
+        this.chickenS = this.sound.add('chickenS');
 
         this.night.play()
         this.night.setLoop(true);
@@ -505,6 +509,7 @@ class Tableau1 extends Phaser.Scene{
                     });
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.U:
+                    me.sound.play('meteoriteS')
                     me.tweens.add({
                         targets: me.meteorite,
                         x: 900,
@@ -521,6 +526,7 @@ class Tableau1 extends Phaser.Scene{
 
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.I:
+                    me.sound.play('cowS')
                     me.tweens.add({
                         targets: me.cowWalk,
                         x: 200,
@@ -575,6 +581,7 @@ class Tableau1 extends Phaser.Scene{
                     }
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.O:
+                    me.sound.play('chickenS')
                     me.tweens.add({
                         targets: me.chickenWalk,
                         x: 200,
