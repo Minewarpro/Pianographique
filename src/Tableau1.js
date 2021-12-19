@@ -24,6 +24,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('idleAlien','image/alien/idle.png')
         this.load.audio('bombe','image/bombe.mp3')
         this.load.audio('thunder','image/thunder.mp3')
+        this.load.audio('fireworkS','image/firework.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -40,6 +41,14 @@ class Tableau1 extends Phaser.Scene{
 
         for(let i=1;i<=13;i++){
             this.load.image('Yfirework'+i,'image/firework/yellowFirework/firework'+i+'.png')
+        }
+
+        for(let i=1;i<=13;i++){
+            this.load.image('Pfirework'+i,'image/firework/purpleFirework/firework'+i+'.png')
+        }
+
+        for(let i=1;i<=13;i++){
+            this.load.image('Gfirework'+i,'image/firework/greenFirework/firework'+i+'.png')
         }
 
         for(let i=1;i<=5;i++){
@@ -175,6 +184,7 @@ class Tableau1 extends Phaser.Scene{
         });
         this.bombe = this.sound.add('bombe');
         this.thunder = this.sound.add('thunder');
+        this.fireworkS = this.sound.add('fireworkS');
 
         this.ovni = this.add.sprite(100,50, 'ovni').setOrigin(0,0);
         this.ovni.setScale(0.01)
@@ -303,6 +313,30 @@ class Tableau1 extends Phaser.Scene{
         this.Yfirework.play('Yfirework')
         this.Yfirework.setScale(1)
         this.Yfirework.visible=false;
+
+        this.Pfirework = this.add.sprite(100, 510, 'Pfirework1').setOrigin(0,0);
+        this.anims.create({
+            key: 'Pfirework',
+            frames: this.getFrames('Pfirework',13),
+            frameRate: 8,
+            repeat: 0
+
+        });
+        this.Pfirework.play('Pfirework')
+        this.Pfirework.setScale(1)
+        this.Pfirework.visible=false;
+
+        this.Gfirework = this.add.sprite(300, 310, 'Gfirework1').setOrigin(0,0);
+        this.anims.create({
+            key: 'Gfirework',
+            frames: this.getFrames('Gfirework',13),
+            frameRate: 8,
+            repeat: 0
+
+        });
+        this.Gfirework.play('Gfirework')
+        this.Gfirework.setScale(1)
+        this.Gfirework.visible=false;
 
 
 
@@ -596,10 +630,23 @@ class Tableau1 extends Phaser.Scene{
                 case Phaser.Input.Keyboard.KeyCodes.J:
                     me.firework.visible=true;
                     me.firework.play('firework')
+                    me.sound.play('fireworkS')
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.K:
                     me.Yfirework.visible=true;
                     me.Yfirework.play('Yfirework')
+                    me.sound.play('fireworkS')
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.L:
+                    me.Pfirework.visible=true;
+                    me.Pfirework.play('Pfirework')
+                    me.sound.play('fireworkS')
+                    break;
+
+                    case Phaser.Input.Keyboard.KeyCodes.M:
+                    me.Gfirework.visible=true;
+                    me.Gfirework.play('Gfirework')
+                        me.sound.play('fireworkS')
                     break;
 
 
