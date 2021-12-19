@@ -33,6 +33,9 @@ class Tableau1 extends Phaser.Scene{
         this.load.audio('meteoriteS','image/sound/meteorite.mp3')
         this.load.audio('cowS','image/sound/cow.mp3')
         this.load.audio('chickenS','image/sound/chicken.mp3')
+        this.load.audio('pigS','image/sound/pig.mp3')
+        this.load.audio('sheepS','image/sound/sheep.mp3')
+        this.load.audio('bip','image/sound/bip.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -201,6 +204,9 @@ class Tableau1 extends Phaser.Scene{
         this.meteoriteS = this.sound.add('meteoriteS');
         this.cowS = this.sound.add('cowS');
         this.chickenS = this.sound.add('chickenS');
+        this.pigS = this.sound.add('pigS');
+        this.sheepS = this.sound.add('sheepS');
+        this.bip = this.sound.add('bip');
 
         this.night.play()
         this.night.setLoop(true);
@@ -610,7 +616,8 @@ class Tableau1 extends Phaser.Scene{
                     });
                     break;
                     case Phaser.Input.Keyboard.KeyCodes.Q:
-                    me.tweens.add({
+                    me.sound.play('pigS')
+                        me.tweens.add({
                         targets: me.pigWalk,
                         x: 200,
                         y: 850,
@@ -624,7 +631,8 @@ class Tableau1 extends Phaser.Scene{
                     });
                     break;
                     case Phaser.Input.Keyboard.KeyCodes.S:
-                    me.tweens.add({
+                    me.sound.play('sheepS')
+                        me.tweens.add({
                         targets: me.sheepWalk,
                         x: 200,
                         y: 870,
@@ -701,6 +709,7 @@ class Tableau1 extends Phaser.Scene{
                         });
                     }
                     if (me.cowWalk.x==200 && me.ovni.x==0){
+                        me.sound.play('bip')
                         me.tweens.add({
                             targets: me.cowWalk,
                             x: 220,
@@ -720,6 +729,7 @@ class Tableau1 extends Phaser.Scene{
                         });
                     }
                     if (me.chickenWalk.x==200 && me.ovni.x==0){
+                        me.sound.play('bip')
                         me.tweens.add({
                             targets: me.chickenWalk,
                             x: 220,
@@ -739,6 +749,7 @@ class Tableau1 extends Phaser.Scene{
                         });
                     }
                     if (me.llamaWalk.x==200 && me.ovni.x==0){
+                        me.sound.play('bip')
                         me.tweens.add({
                             targets: me.llamaWalk,
                             x: 220,
@@ -758,6 +769,7 @@ class Tableau1 extends Phaser.Scene{
                         });
                     }
                     if (me.pigWalk.x==200 && me.ovni.x==0){
+                        me.sound.play('bip')
                         me.tweens.add({
                             targets: me.pigWalk,
                             x: 220,
@@ -777,6 +789,7 @@ class Tableau1 extends Phaser.Scene{
                         });
                     }
                     if (me.sheepWalk.x==200 && me.ovni.x==0){
+                        me.sound.play('bip')
                         me.tweens.add({
                             targets: me.sheepWalk,
                             x: 220,
