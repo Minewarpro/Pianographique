@@ -29,6 +29,8 @@ class Tableau1 extends Phaser.Scene{
         this.load.audio('ufo','image/sound/ufo.mp3')
         this.load.audio('night','image/sound/night.mp3')
         this.load.audio('planeS','image/sound/plane.mp3')
+        this.load.audio('alienS','image/sound/alien.mp3')
+        this.load.audio('meteoriteS','image/sound/meteoriteS.mp3')
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -193,6 +195,8 @@ class Tableau1 extends Phaser.Scene{
         this.ufo = this.sound.add('ufo');
         this.night = this.sound.add('night');
         this.planeS = this.sound.add('planeS');
+        this.alienS = this.sound.add('alienS');
+        this.meteoriteS = this.sound.add('meteoriteS');
 
         this.night.play()
         this.night.setLoop(true);
@@ -546,6 +550,7 @@ class Tableau1 extends Phaser.Scene{
                                 me.alienWalk.stop('alien-walk')
                                 me.alienWalk.visible = false;
                                 me.idleAlien.visible = true;
+                                me.sound.play('alienS')
                             }
                         });
                     }
