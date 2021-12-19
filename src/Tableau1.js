@@ -32,6 +32,11 @@ class Tableau1 extends Phaser.Scene{
             this.load.image('cow-walk-'+i,'image/cow/cow-walk-'+i+'.png')
         }
 
+        for(let i=1;i<=4;i++){
+            this.load.image('chicken-walk-'+i,'image/chiken/chicken-walk-'+i+'.png')
+        }
+
+
         for(let i=1;i<=9;i++){
             this.load.image('explosion_0'+i,'image/explosion_effect/keyframes/explosion_0'+i+'.png')
         }
@@ -152,12 +157,22 @@ class Tableau1 extends Phaser.Scene{
         this.cowWalk = this.add.sprite(700, 750, 'cow-walk-1').setOrigin(0,0);
         this.anims.create({
             key: 'cow-walk',
-            frames: this.getFrames('cow-walk-',3),
+            frames: this.getFrames('cow-walk-',4),
             frameRate: 8,
             repeat: -1
 
         });
         this.cowWalk.play('cow-walk')
+
+        this.chickenWalk = this.add.sprite(0, 0, 'chicken-walk-1').setOrigin(0,0);
+        this.anims.create({
+            key: 'chicken-walk',
+            frames: this.getFrames('chicken-walk-',4),
+            frameRate: 8,
+            repeat: -1
+
+        });
+        this.chickenWalk.play('chicken-walk')
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
@@ -294,6 +309,20 @@ class Tableau1 extends Phaser.Scene{
                         delay: 0,
                         onComplete: function () {
                             me.cowWalk.stop('cow-walk')
+                        }
+                    });
+                    break;
+                case Phaser.Input.Keyboard.KeyCodes.O:
+                    me.tweens.add({
+                        targets: me.chickenWalk,
+                        x: 200,
+                        y: 750,
+                        duration : 3000,
+                        ease: 'Linear',
+                        repeat: 0,
+                        delay: 0,
+                        onComplete: function () {
+                            me.cowWalk.stop('chicken-walk')
                         }
                     });
                     break;
