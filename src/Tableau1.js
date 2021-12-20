@@ -21,6 +21,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('meteorite','image/meteorite_gif.gif')
         this.load.image('plane','image/planes/plane_1/plane_1_blue.png')
         this.load.image('torpedo','image/planes/torpedo/torpedo_black.png')
+        this.load.image('merry','image/merry.png')
         this.load.image('idleAlien','image/alien/idle.png')
         this.load.image('santa','image/santa.png')
         this.load.audio('bombe','image/sound/bombe.mp3')
@@ -178,6 +179,9 @@ class Tableau1 extends Phaser.Scene{
 
         this.virevolant = this.add.image(1200,700, 'virevolant').setOrigin(0,0);
         this.virevolant.setScale(0.3)
+
+        this.merry = this.add.image(1200,700, 'merry').setOrigin(0,0);
+        this.merry.setScale(0.3)
 
         this.idleAlien = this.add.image(400,680, 'idleAlien').setOrigin(0,0);
         this.idleAlien.setScale(0.2)
