@@ -1,19 +1,13 @@
-/**
- * ALGO: ceci est une classe...
- * Vous verrez ça plus tard en détail avec Rémi, pour l'instant on n'a pas trop besoin de savoir à quoi ça sert.
- */
+
 class Tableau1 extends Phaser.Scene{
     /**
      * Précharge les assets
      */
     preload(){
-        //bg 2 (tout au fond et très flou)
+
         this.load.image('Fond','image/Valley Small Road Fresh Simple Background.png')
 
-        //bg 1 (gris légèrement flou)
 
-
-        //ground (premier plan noir)
 
         this.load.image('fil','image/filante.png')
         this.load.image('ovni','image/ovni.png')
@@ -42,8 +36,6 @@ class Tableau1 extends Phaser.Scene{
         this.load.audio('ho','image/sound/ho.mp3')
         this.load.audio('chrismasBell','image/sound/chismasBell.mp3')
 
-        //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
-        // ALGO : ceci est une boucle
         for(let i=1;i<=6;i++){
             this.load.image('star-'+i,'image/star/star-'+i+'.png')
         }
@@ -120,8 +112,8 @@ class Tableau1 extends Phaser.Scene{
     }
     /**
      * Crée la scène
-     * TODO élèves : reproduire à l'identique assets/level/00-preview-example/sample1.jpg
-     * TODO élèves : plus tard, continuez le décor vers la droite en vous servant des assets mis à votre disposition
+     *
+     *
      */
     create(){
 
@@ -131,7 +123,7 @@ class Tableau1 extends Phaser.Scene{
          */
 
 
-        //--------------background 2 (tout au fond et flou)--------------------
+
 
         /**
          * contient tous les éléments du background 2 (gris clair très flou)
@@ -147,7 +139,7 @@ class Tableau1 extends Phaser.Scene{
         this.bg2Container.add(Fond);
 
 
-        //--------------background 1 (gris) --------------------
+
 
         /**
          * contient tous les éléments du background 1 (gris)
@@ -156,7 +148,7 @@ class Tableau1 extends Phaser.Scene{
         this.bg1Container=this.add.container(0,0);
 
 
-        //-------------ground (premier plan noir)---------------------------
+
 
         /**
          * contient tous les éléments du premier plan (noir)
@@ -180,8 +172,9 @@ class Tableau1 extends Phaser.Scene{
         this.virevolant = this.add.image(1200,700, 'virevolant').setOrigin(0,0);
         this.virevolant.setScale(0.3)
 
-        this.merry = this.add.image(1200,700, 'merry').setOrigin(0,0);
-        this.merry.setScale(0.3)
+        this.merry = this.add.image(-20,-50, 'merry').setOrigin(0,0);
+        this.merry.setScale(0.7)
+        this.merry.visible=false;
 
         this.idleAlien = this.add.image(400,680, 'idleAlien').setOrigin(0,0);
         this.idleAlien.setScale(0.2)
@@ -432,14 +425,11 @@ class Tableau1 extends Phaser.Scene{
         this.initKeyboard();
         // Définit l'espace de déplacement de la caméra
         this.cameras.main.setBounds(0, 0, 1080, 540);
-        //définit à quelles vitesse se déplacent nos différents plans
-        this.bg2Container.scrollFactorX=0;
-        this.bg1Container.scrollFactorX=0;
-        this.groundContainer.scrollFactorX=0;
+
     }
     /**
      * Définit ce qui se passe quand on appuie ou relache une touche du clavier
-     * ALGO : ceci est une fonction ou méthode
+     *
      */
     initKeyboard(){
         let me=this;
@@ -708,6 +698,7 @@ class Tableau1 extends Phaser.Scene{
                     case Phaser.Input.Keyboard.KeyCodes.W:
                         me.sound.play('ho')
                         me.sound.play('chrismasBell')
+                        me.merry.visible=true;
                         me.tweens.add({
                             targets: me.santa,
                             x: -200,
@@ -721,6 +712,9 @@ class Tableau1 extends Phaser.Scene{
                                 me.santa.y = 100;
                             }
                         });
+                        setTimeout( function () {
+                            me.merry.visible=false;
+                        }, 3000);
                     break;
 
 
@@ -894,12 +888,6 @@ class Tableau1 extends Phaser.Scene{
      * Cette fonction s'exécute en boucle (à peu près 60 fois par secondes)
      */
     update(){
-        //déplacement de la caméra
-        this.cameras.main.scrollX+=this.speed; // on aurait pu écrire : this.cameras.main.scrollX= this.cameras.main.scrollX + this.speed;
-
-        //petit effet de vibrance sur le filtre film au tout premier plan
-        //this.filterFilm.setAlpha(Phaser.Math.Between(95,100)/100)
-
         //if(Phaser.Math.Between(0,500)===50){
 
 
