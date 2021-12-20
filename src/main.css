@@ -28,3 +28,7 @@ a:visited{
 canvas{
     outline: 1px solid #333;
 }
+
+.positioned{
+    position: absolute;
+}
