@@ -1,7 +1,7 @@
 let gameConfig = {
     type: Phaser.AUTO,
     width: 610,
-    height: 950,
+    height: 930,
     backgroundColor: '#FFFFFF',
     parent: 'game',
     physics: {
